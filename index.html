@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Профиль Алисы Завьяловой</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background-color: #f0f2f5;
+            color: #333;
+            line-height: 1.5;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Шапка профиля */
+        .profile-header {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cover-photo {
+            height: 200px;
+            background-color: #4267B2;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .profile-info {
+            display: flex;
+            flex-direction: column;
+            padding: 15px;
+            position: relative;
+        }
+        
+        .avatar-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: -75px;
+            text-align: center;
+        }
+        
+        .avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 5px solid #fff;
+            background-color: #ddd;
+            background-size: cover;
+            background-position: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .user-details {
+            margin-top: 15px;
+            text-align: center;
+            width: 100%;
+        }
+        
+        .user-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .user-bio {
+            color: #65676B;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+        
+        .profile-stats {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .stat-item {
+            text-align: center;
+            min-width: 80px;
+        }
+        
+        .stat-value {
+            font-weight: bold;
+            font-size: 16px;
+        }
+        
+        .stat-label {
+            font-size: 12px;
+            color: #65676B;
+        }
+        
+        /* Основной контент */
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        /* Левая колонка (лента постов) */
+        .feed {
+            order: 2;
+        }
+        
+        .post {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+            padding: 12px;
+            margin-bottom: 15px;
+        }
+        
+        .post-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .post-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #ddd;
+            margin-right: 10px;
+            background-size: cover;
+            background-position: center;
+            flex-shrink: 0;
+        }
+        
+        .post-user {
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        .post-time {
+            color: #65676B;
+            font-size: 11px;
+            margin-left: 5px;
+        }
+        
+        .post-content {
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
+        
+        .post-image {
+            width: 100%;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            max-height: 400px;
+            object-fit: cover;
+            cursor: pointer;
+        }
+        
+        .post-actions {
+            display: flex;
+            border-top: 1px solid #eee;
+            padding-top: 8px;
+        }
+        
+        .action-btn {
+            flex: 1;
+            text-align: center;
+            padding: 8px 4px;
+            border-radius: 4px;
+            cursor: pointer;
+            color: #65676B;
+            font-weight: bold;
+            font-size: 13px;
+        }
+        
+        .action-btn:hover {
+            background-color: #f0f2f5;
+        }
+        
+        /* Боковая панель */
+        .sidebar {
+            order: 1;
+        }
+        
+        .sidebar-card {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .card-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 12px;
+            color: #333;
+        }
+        
+        .info-item {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            font-size: 13px;
+        }
+        
+        .info-icon {
+            margin-right: 10px;
+            color: #65676B;
+            font-size: 16px;
+            min-width: 20px;
+            text-align: center;
+        }
+        
+        .photos-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 6px;
+        }
+        
+        .photo-item {
+            aspect-ratio: 1;
+            background-color: #eee;
+            border-radius: 4px;
+            background-size: cover;
+            background-position: center;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        
+        .photo-item:hover {
+            transform: scale(1.03);
+        }
+        
+        /* Модальное окно */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9);
+            overflow: auto;
+        }
+        
+        .modal-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            padding: 20px;
+        }
+        
+        .modal-image {
+            max-width: 90%;
+            max-height: 80vh;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+        
+        .modal-caption {
+            color: white;
+            text-align: center;
+            margin-top: 15px;
+            font-size: 18px;
+        }
+        
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .close:hover {
+            color: #ddd;
+        }
+        
+        .nav-buttons {
+            position: fixed;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 20px;
+            transform: translateY(-50%);
+        }
+        
+        .prev, .next {
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            padding: 10px;
+            user-select: none;
+        }
+        
+        /* Адаптация под разные экраны */
+        @media (min-width: 576px) {
+            .profile-info {
+                flex-direction: row;
+                align-items: flex-end;
+                padding: 20px;
+            }
+            
+            .avatar-container {
+                align-items: flex-start;
+                text-align: left;
+                margin-top: -75px;
+            }
+            
+            .user-details {
+                margin-left: 20px;
+                margin-top: 0;
+                text-align: left;
+            }
+            
+            .profile-stats {
+                justify-content: flex-start;
+            }
+        }
+        
+        @media (min-width: 768px) {
+            .cover-photo {
+                height: 300px;
+            }
+            
+            .main-content {
+                flex-direction: row;
+            }
+            
+            .feed {
+                flex: 2;
+                order: 1;
+            }
+            
+            .sidebar {
+                flex: 1;
+                order: 2;
+            }
+            
+            .user-name {
+                font-size: 28px;
+            }
+            
+            .user-bio {
+                font-size: 16px;
+            }
+            
+            .stat-value {
+                font-size: 18px;
+            }
+            
+            .stat-label {
+                font-size: 14px;
+            }
+            
+            .card-title {
+                font-size: 18px;
+            }
+            
+            .info-item {
+                font-size: 14px;
+            }
+            
+            .post {
+                padding: 15px;
+            }
+            
+            .post-user {
+                font-size: 15px;
+            }
+            
+            .post-content {
+                font-size: 15px;
+            }
+            
+            .action-btn {
+                font-size: 14px;
+                padding: 8px;
+            }
+        }
+        
+        @media (min-width: 992px) {
+            .photos-grid {
+                gap: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Шапка профиля -->
+        <div class="profile-header">
+            <div class="cover-photo" style="background-image: url('https://images.unsplash.com/photo-1499002238440-d264edd596ec')"></div>
+            <div class="profile-info">
+                <div class="avatar-container">
+                    <div class="avatar" style="background-image: url('https://images.unsplash.com/photo-1438761681033-6461ffad8d80')"></div>
+                    <div class="user-details">
+                        <h1 class="user-name">Алиса Завьялова</h1>
+                        <p class="user-bio">Модель, путешественник, блогер</p>
+                        <div class="profile-stats">
+                            <div class="stat-item">
+                                <div class="stat-value">5,678</div>
+                                <div class="stat-label">подписчиков</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">1,789</div>
+                                <div class="stat-label">фотографий</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Основной контент -->
+        <div class="main-content">
+            <!-- Лента постов -->
+            <div class="feed">
+                <!-- Пост 1 -->
+                <div class="post">
+                    <div class="post-header">
+                        <div class="post-avatar" style="background-image: url('https://images.unsplash.com/photo-1438761681033-6461ffad8d80')"></div>
+                        <div>
+                            <span class="post-user">Алиса Завьялова</span>
+                            <span class="post-time">2 часа назад</span>
+                        </div>
+                    </div>
+                    <div class="post-content">
+                        <p>Сегодня был прекрасный день! Съездили с друзьями на природу, отлично провели время. Вот несколько фотографий с нашей поездки.</p>
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470" alt="Фото природы" class="post-image" onclick="openModal('https://images.unsplash.com/photo-1501785888041-af3ef285b470', 'Природа')">
+                    <div class="post-actions">
+                        <div class="action-btn">Нравится</div>
+                        <div class="action-btn">Комментировать</div>
+                        <div class="action-btn">Поделиться</div>
+                    </div>
+                </div>
+                
+                <!-- Пост 2 -->
+                <div class="post">
+                    <div class="post-header">
+                        <div class="post-avatar" style="background-image: url('https://images.unsplash.com/photo-1438761681033-6461ffad8d80')"></div>
+                        <div>
+                            <span class="post-user">Алиса Завьялова</span>
+                            <span class="post-time">вчера в 18:30</span>
+                        </div>
+                    </div>
+                    <div class="post-content">
+                        <p>Только что опубликовала новую статью в своем блоге о путешествиях. Обязательно прочитайте и оставьте свои комментарии!</p>
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1472214103451-9374bd1c798e" alt="Пейзаж" class="post-image" onclick="openModal('https://images.unsplash.com/photo-1472214103451-9374bd1c798e', 'Пейзаж')">
+                    <div class="post-actions">
+                        <div class="action-btn">Нравится</div>
+                        <div class="action-btn">Комментировать</div>
+                        <div class="action-btn">Поделиться</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Боковая панель -->
+            <div class="sidebar">
+                <!-- Информация -->
+                <div class="sidebar-card">
+                    <h3 class="card-title">Информация</h3>
+                    <div class="info-item">
+                        <span class="info-icon">📍</span>
+                        <span>Живет в России</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-icon">🏠</span>
+                        <span>Из России</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-icon">💼</span>
+                        <span>Бизнес</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-icon">❤️</span>
+                        <span>В отношениях</span>
+                    </div>
+                </div>
+                
+                <!-- Фотографии -->
+                <div class="sidebar-card">
+                    <h3 class="card-title">Фотографии <small>(нажмите для просмотра)</small></h3>
+                    <div class="photos-grid">
+                        <div class="photo-item" style="background-image: url('https://images.unsplash.com/photo-1494790108377-be9c29b29330')" 
+                             onclick="openModal('https://images.unsplash.com/photo-1494790108377-be9c29b29330', 'Фото 1')"></div>
+                        <div class="photo-item" style="background-image: url('https://images.unsplash.com/photo-1517841905240-472988babdf9')" 
+                             onclick="openModal('https://images.unsplash.com/photo-1517841905240-472988babdf9', 'Фото 2')"></div>
+                        <div class="photo-item" style="background-image: url('https://images.unsplash.com/photo-1524504388940-b1c1722653e1')" 
+                             onclick="openModal('https://images.unsplash.com/photo-1524504388940-b1c1722653e1', 'Фото 3')"></div>
+                        <div class="photo-item" style="background-image: url('https://images.unsplash.com/photo-1488426862026-3ee34a7d66df')" 
+                             onclick="openModal('https://images.unsplash.com/photo-1488426862026-3ee34a7d66df', 'Фото 4')"></div>
+                        <div class="photo-item" style="background-image: url('https://images.unsplash.com/photo-1544005313-94ddf0286df2')" 
+                             onclick="openModal('https://images.unsplash.com/photo-1544005313-94ddf0286df2', 'Фото 5')"></div>
+                        <div class="photo-item" style="background-image: url('https://images.unsplash.com/photo-1554151228-14d9def656e4')" 
+                             onclick="openModal('https://images.unsplash.com/photo-1554151228-14d9def656e4', 'Фото 6')"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно -->
+    <div id="imageModal" class="modal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <div class="nav-buttons">
+            <span class="prev" onclick="changeImage(-1)">&#10094;</span>
+            <span class="next" onclick="changeImage(1)">&#10095;</span>
+        </div>
+        <div class="modal-content">
+            <img id="modalImage" class="modal-image">
+            <div id="caption" class="modal-caption"></div>
+        </div>
+    </div>
+
+    <script>
+        // Текущий индекс изображения
+        let currentImageIndex = 0;
+        const images = [
+            {src: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330', caption: 'Фото 1'},
+            {src: 'https://images.unsplash.com/photo-1517841905240-472988babdf9', caption: 'Фото 2'},
+            {src: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1', caption: 'Фото 3'},
+            {src: 'https://images.unsplash.com/photo-1488426862026-3ee34a7d66df', caption: 'Фото 4'},
+            {src: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2', caption: 'Фото 5'},
+            {src: 'https://images.unsplash.com/photo-1554151228-14d9def656e4', caption: 'Фото 6'},
+            {src: 'https://images.unsplash.com/photo-1501785888041-af3ef285b470', caption: 'Природа'},
+            {src: 'https://images.unsplash.com/photo-1472214103451-9374bd1c798e', caption: 'Пейзаж'}
+        ];
+
+        // Открытие модального окна
+        function openModal(src, caption) {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            const captionText = document.getElementById('caption');
+            
+            // Находим индекс текущего изображения
+            currentImageIndex = images.findIndex(img => img.src === src);
+            if (currentImageIndex === -1) currentImageIndex = 0;
+            
+            modal.style.display = "flex";
+            modalImg.src = src;
+            captionText.innerHTML = caption;
+            
+            // Блокировка прокрутки страницы
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Закрытие модального окна
+        function closeModal() {
+            document.getElementById('imageModal').style.display = "none";
+            document.body.style.overflow = 'auto';
+        }
+
+        // Переключение между изображениями
+        function changeImage(n) {
+            currentImageIndex += n;
+            
+            // Зацикливание
+            if (currentImageIndex >= images.length) currentImageIndex = 0;
+            if (currentImageIndex < 0) currentImageIndex = images.length - 1;
+            
+            const modalImg = document.getElementById('modalImage');
+            const captionText = document.getElementById('caption');
+            
+            modalImg.src = images[currentImageIndex].src;
+            captionText.innerHTML = images[currentImageIndex].caption;
+        }
+
+        // Закрытие при клике вне изображения
+        window.onclick = function(event) {
+            const modal = document.getElementById('imageModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+
+        // Закрытие по клавише Esc
+        document.onkeydown = function(evt) {
+            evt = evt || window.event;
+            if (evt.key === 'Escape') {
+                closeModal();
+            }
+        };
+    </script>
+</body>
+</html>
